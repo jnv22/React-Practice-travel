@@ -7,6 +7,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ChineseHome from '../app/chineseHome';
 import UsHome from '../app/usHome';
+import components from "../app/mdlComponents";
+
 
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
@@ -29,10 +31,10 @@ const Springboard = React.createClass({
     return (
         <div id = "content">
           <div id = "chineseSpringboard">
-            <button><Link to="/zh-tw">中文</Link></button>
+            <Link to="/zh-tw"><components.ButtonRaised label="中文"/></Link>
           </div>
           <div id = "englishSpringboard">
-            <button><Link to="/en-us">English</Link></button>
+            <Link to="/en-us"><components.ButtonRaised label="English"/></Link>
           </div>
         </div>
     );
