@@ -8,6 +8,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ChineseHome from '../app/chineseHome';
 import UsHome from '../app/usHome';
 import components from "../app/mdlComponents";
+injectTapEventPlugin();
+require("../app/styles/app.scss")
 
 
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
@@ -21,30 +23,25 @@ const NoMatch = React.createClass({
 });
 
 const Main = React.createClass({
-    render: function() {
-        return <div className="MainSite">{this.props.children} </div>
-    }
+  render: function() {
+    return <div className="MainSite">{this.props.children} </div>
+  }
 });
 
 const Springboard = React.createClass({
   render: function() {
     return (
-        <div id = "content">
-          <div id = "chineseSpringboard">
-            <Link to="/zh-tw"><components.ButtonRaised label="中文"/></Link>
-          </div>
-          <div id = "englishSpringboard">
-            <Link to="/en-us"><components.ButtonRaised label="English"/></Link>
-          </div>
+      <div id = "content">
+        <div id = "chineseSpringboard">
+          <Link to="/zh-tw"><components.ButtonRaised label="中文"/></Link>
         </div>
+        <div id = "englishSpringboard">
+          <Link to="/en-us"><components.ButtonRaised label="English"/></Link>
+        </div>
+      </div>
     );
   }
 });
-
-
-injectTapEventPlugin();
-
-require("./styles/app.css");
 
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -55,7 +52,7 @@ const App = () => (
        <Route path="en-us" component={UsHome}/>
      </Route>
      <Route path="*" component={NoMatch}/>
- </Router>
+    </Router>
   </MuiThemeProvider>
 );
 

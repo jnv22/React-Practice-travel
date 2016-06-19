@@ -11,6 +11,22 @@ html, body {
 
 .MainSite {
   height: 100%;
+  #usHome {
+    #searchTickets {
+      form {
+        #destination, #origin {
+          display: inline-block;
+          width: 50%;
+          text-align: center;
+        }
+      }
+      .button {
+        width: 50%;
+        margin: 12px auto auto auto !important;
+        display: block !important;
+      }
+    }
+  }
 }
 
 #chineseSpringboard {

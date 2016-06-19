@@ -14,7 +14,8 @@ module.exports =  {
     loaders: [
       {test: /\.jsx?$/, include: __dirname + '/app', loader: "babel"},
       { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.jpg$/, loader: "url-loader?limit=10000&minetype=image/jpg" }
+      { test: /\.jpg$/, loader: "url-loader?limit=10000&minetype=image/jpg" },
+      {test: /\.scss$/,loaders: ["style", "css", "sass"]}
 
     ]
   },

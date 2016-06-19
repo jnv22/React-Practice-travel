@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios"
 import components from "../app/mdlComponents";
-
+import api from "./api";
 
 var flights = {
   apiTemplate: {
@@ -27,29 +26,39 @@ var flights = {
   returnedResults: {}
 }
 
-var myRequest = function(flightQuery) {
-  return axios({
-  method: 'post',
-  url: 'https://www.googleapis.com/qpxExpress/v1/trips/search?key=AIzaSyDDoyulhFz7H1QawrkV-LbqHMeLfWIZCU8',
-  data: JSON.stringify(flightQuery),
-  headers: {'Content-Type': 'application/json'}
-  })
-};
+var SearchResults = React.createClass({
+  render: function() {
+    console.log(this.props, "SearchResults")
+    return(
+      <h3></h3>
+    )
+  }
+})
 
 var SearchTickets = React.createClass({
+    getInitialState: function() {
+      return {
+        flightData: this.props.flightData,
+        currentDate: new Date()
+      }
+    },
     handleChange: function(field, event) {
       var formState = {};
       formState[field] = event.target.value;
       this.setState(formState)
     },
-    
+
     submit: function(e) {
       e.preventDefault();
+      var ctrl = this;
       flights.apiTemplate.request.slice[0].origin = this.state.from;
       flights.apiTemplate.request.slice[0].destination = this.state.to;
-      myRequest(flights.apiTemplate)
+      api.requestFlightData(flights.apiTemplate)
         .then(function(response) {
-          flights.returnedResults = response;
+          ctrl.props.onClick(response)
+        })
+        .catch(function(error) {
+          console.log(error)
         })
     },
 
@@ -57,14 +66,26 @@ var SearchTickets = React.createClass({
       return (
         <div id = "searchTickets">
           <form>
-              <components.InputField
-                onChange={this.handleChange.bind(this, "from")}
-                label="From"
-              />
-              <components.InputField
-                onChange={this.handleChange.bind(this, "to")}
-                label="To"
-              />
+              <div id="origin">
+                <components.InputField
+                  onChange={this.handleChange.bind(this, "from")}
+                  label="From"
+                  id="originInput"
+                />
+                <components.DatePicker
+                  date={this.state.currentDate}
+                  />
+              </div>
+              <div id="destination">
+                <components.InputField
+                  onChange={this.handleChange.bind(this, "to")}
+                  label="To"
+                  id="destinationInput"
+                />
+                <components.DatePicker
+                  date={this.state.currentDate}
+                  />
+              </div>
             <components.ButtonRaised onclick = {this.submit} label="Book Tickets"/>
           </form>
         </div>
@@ -73,11 +94,21 @@ var SearchTickets = React.createClass({
 });
 
 var usHome = React.createClass({
+  getInitialState: function() {
+    return {
+      flightData: ""
+    }
+  },
+  updateFlightResults: function(flightData) {
+    console.log(flightData, "UpdateResults");
+    this.setState({flightData: flightData})
+  },
   render: function() {
     return (
-      <div>
-        <h4>US HOME</h4>
-        <SearchTickets />
+      <div id="usHome">
+        <components.Header title="Us Home"/>
+        <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
+        <SearchResults flightData={this.state.flightData}/>
       </div>
     );
   }
