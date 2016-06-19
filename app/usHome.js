@@ -33,7 +33,6 @@ var SearchResults = React.createClass({
     console.log(this.props, "SearchResults")
     var flightList = this.props.flightData !== null ?
       this.props.flightData.data.trips.tripOption.map(function(res) {
-        console.log(moment.duration(res.slice[0].duration, "minutes").format())
         return (
           <li>
             <span>{res.saleTotal}</span>
