@@ -46,14 +46,14 @@ const Components = {
   ButtonRaised: React.createClass({
     render: function() {
       return (
-          <RaisedButton
-            label= {this.props.label}
-            className="button"
-            labelPosition="before"
-            secondary="true"
-            onClick={this.props.onclick}
-            style={styles.button}>
-          </RaisedButton>
+        <RaisedButton
+          label= {this.props.label}
+          className="button"
+          labelPosition="before"
+          secondary="true"
+          onClick={this.props.onclick}
+          style={styles.button}>
+        </RaisedButton>
         )
     }
   }),

@@ -1,6 +1,8 @@
 import React from "react";
 import components from "../app/mdlComponents";
 import api from "./api";
+import moment from "moment";
+require("moment-duration-format");
 
 var flights = {
   apiTemplate: {
@@ -29,8 +31,20 @@ var flights = {
 var SearchResults = React.createClass({
   render: function() {
     console.log(this.props, "SearchResults")
+    var flightList = this.props.flightData !== null ?
+      this.props.flightData.data.trips.tripOption.map(function(res) {
+        console.log(moment.duration(res.slice[0].duration, "minutes").format())
+        return (
+          <li>
+            <span>{res.saleTotal}</span>
+            <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
+          </li>
+        )
+    }) : ""
     return(
-      <h3></h3>
+      <ul>
+        {flightList}
+      </ul>
     )
   }
 })
@@ -96,7 +110,7 @@ var SearchTickets = React.createClass({
 var usHome = React.createClass({
   getInitialState: function() {
     return {
-      flightData: ""
+      flightData: null
     }
   },
   updateFlightResults: function(flightData) {
