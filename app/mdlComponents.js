@@ -39,7 +39,9 @@ const Components = {
   DatePicker: React.createClass({
     render: function() {
       return (
-        <DatePicker defaultDate={this.props.date}/>
+        <DatePicker
+          defaultDate={this.props.date}
+          onChange={this.props.onChange}/>
       )
     }
   }),

@@ -55,17 +55,24 @@ var SearchTickets = React.createClass({
         currentDate: new Date()
       }
     },
-    handleChange: function(field, event) {
+    handleInputChange: function(field, event) {
+      console.log(field)
       var formState = {};
       formState[field] = event.target.value;
       this.setState(formState)
     },
-
+    handleDateChange: function(field, e, date) {
+      date = moment(date).format("YYYY-MM-DD");
+      var formState = {};
+      formState[field] = date;
+      this.setState(formState)
+    },
     submit: function(e) {
       e.preventDefault();
       var ctrl = this;
       flights.apiTemplate.request.slice[0].origin = this.state.from;
       flights.apiTemplate.request.slice[0].destination = this.state.to;
+      flights.apiTemplate.request.slice[0].date = this.state.date;
       api.requestFlightData(flights.apiTemplate)
         .then(function(response) {
           ctrl.props.onClick(response)
@@ -74,24 +81,24 @@ var SearchTickets = React.createClass({
           console.log(error)
         })
     },
-
     render: function() {
       return (
         <div id = "searchTickets">
           <form>
               <div id="origin">
                 <components.InputField
-                  onChange={this.handleChange.bind(this, "from")}
+                  onChange={this.handleInputChange.bind(this, "from")}
                   label="From"
                   id="originInput"
                 />
                 <components.DatePicker
                   date={this.state.currentDate}
+                  onChange={this.handleDateChange.bind(this, "date")}
                   />
               </div>
               <div id="destination">
                 <components.InputField
-                  onChange={this.handleChange.bind(this, "to")}
+                  onChange={this.handleInputChange.bind(this, "to")}
                   label="To"
                   id="destinationInput"
                 />
