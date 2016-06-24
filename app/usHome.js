@@ -31,16 +31,36 @@ var flights = {
 var SearchResults = React.createClass({
   render: function() {
     console.log(this.props, "SearchResults")
-    var flightList = this.props.flightData !== null ?
-      this.props.flightData.data.trips.tripOption.map(function(res) {
+    console.log(this);
+
+    var flightDetails = function(res) {
+      console.log(res, "flightDetails")
+      return res.slice[0].segment.map(function(trip) {
         return (
-          <li>
-            <span>{res.saleTotal}</span>
-            <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
+          <div id="flightDetails">
+            <span>{trip.flight.carrier} {trip.flight.number}</span>
+            <span>{trip.leg[0].origin}</span>
+            <span>{moment(trip.leg[0].departureTime).format("h:mm a")}</span>
+            <span>{trip.leg[0].destination}</span>
+            <span>{moment(trip.leg[0].arrivalTime).format("h:mm a")}</span>
+          </div>
+        )
+      })
+    };
+
+    var flightList = this.props.flightData !== null ?
+      this.props.flightData.data.trips.tripOption.map((res) => {
+        return (
+          <li className="flightList" key={res.id} >
+            <div className="generalFlightInformation">
+              <span>{res.saleTotal}</span>
+              <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
+            </div>
+            {flightDetails(res)}
           </li>
         )
     }) : ""
-    return(
+    return (
       <ul>
         {flightList}
       </ul>

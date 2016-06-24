@@ -26,6 +26,27 @@ html, body {
         display: block !important;
       }
     }
+
+    ul {
+      li.flightList {
+        clear:  both;
+        background-color: #eeeeee;
+        .generalFlightInformation {
+          width: 33%;
+          display: inline-block;
+        }
+        span {
+          padding: 5px;
+        }
+        #flightDetails {
+          display: inline-block;
+          width: 33%;
+          span {
+            display: inline-block;
+          }
+        }
+      }
+    }
   }
 }
 
