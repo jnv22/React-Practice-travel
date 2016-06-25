@@ -12,6 +12,11 @@ var flights = {
           "origin": "",
           "destination": "",
           "date": "2016-06-22"
+        },
+        {
+          "origin": "",
+          "destination": "",
+          "date": "2016-06-22"
         }
       ],
       passengers: {
@@ -34,17 +39,18 @@ var SearchResults = React.createClass({
     console.log(this);
 
     var flightDetails = function(res) {
-      console.log(res, "flightDetails")
-      return res.slice[0].segment.map(function(trip) {
-        return (
-          <div id="flightDetails">
-            <span>{trip.flight.carrier} {trip.flight.number}</span>
-            <span>{trip.leg[0].origin}</span>
-            <span>{moment(trip.leg[0].departureTime).format("h:mm a")}</span>
-            <span>{trip.leg[0].destination}</span>
-            <span>{moment(trip.leg[0].arrivalTime).format("h:mm a")}</span>
-          </div>
-        )
+      return res.slice.map(function(segments) {
+        return segments.segment.map(function(trip) {
+          return (
+            <div id="flightDetails">
+              <span>{trip.flight.carrier} {trip.flight.number}</span>
+              <span>{trip.leg[0].origin}</span>
+              <span>{moment(trip.leg[0].departureTime).format("h:mm a")}</span>
+              <span>{trip.leg[0].destination}</span>
+              <span>{moment(trip.leg[0].arrivalTime).format("h:mm a")}</span>
+            </div>
+          )
+        })
       })
     };
 
@@ -56,7 +62,9 @@ var SearchResults = React.createClass({
               <span>{res.saleTotal}</span>
               <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
             </div>
-            {flightDetails(res)}
+            <div className="generalFlightDetails">
+              {flightDetails(res)}
+            </div>
           </li>
         )
     }) : ""
@@ -72,7 +80,8 @@ var SearchTickets = React.createClass({
     getInitialState: function() {
       return {
         flightData: this.props.flightData,
-        currentDate: new Date()
+        currentDate: new Date(),
+        loadingFlightData: false
       }
     },
     handleInputChange: function(field, event) {
@@ -89,19 +98,27 @@ var SearchTickets = React.createClass({
     },
     submit: function(e) {
       e.preventDefault();
+      this.setState({loadingFlightData: true})
       var ctrl = this;
       flights.apiTemplate.request.slice[0].origin = this.state.from;
       flights.apiTemplate.request.slice[0].destination = this.state.to;
-      flights.apiTemplate.request.slice[0].date = this.state.date;
+      flights.apiTemplate.request.slice[0].date = this.state.departDate;
+      flights.apiTemplate.request.slice[1].origin = this.state.to;
+      flights.apiTemplate.request.slice[1].destination = this.state.from;
+      flights.apiTemplate.request.slice[1].date = this.state.arrivalDate;
+
       api.requestFlightData(flights.apiTemplate)
         .then(function(response) {
-          ctrl.props.onClick(response)
+          ctrl.props.onClick(response),
+          ctrl.setState({loadingFlightData:false})
         })
         .catch(function(error) {
-          console.log(error)
+          ctrl.setState({loadingFlightData:false})
+          console.log(error, "error")
         })
     },
     render: function() {
+      console.log(this.state.loadingFlightData, "state")
       return (
         <div id = "searchTickets">
           <form>
@@ -113,7 +130,7 @@ var SearchTickets = React.createClass({
                 />
                 <components.DatePicker
                   date={this.state.currentDate}
-                  onChange={this.handleDateChange.bind(this, "date")}
+                  onChange={this.handleDateChange.bind(this, "departDate")}
                   />
               </div>
               <div id="destination">
@@ -124,9 +141,10 @@ var SearchTickets = React.createClass({
                 />
                 <components.DatePicker
                   date={this.state.currentDate}
+                  onChange={this.handleDateChange.bind(this, "arrivalDate")}
                   />
               </div>
-            <components.ButtonRaised onclick = {this.submit} label="Book Tickets"/>
+            <components.ButtonRaised onclick = {this.submit} disabled = {this.state.loadingFlightData ? true : false} label={this.state.loadingFlightData ? "Loading" : "Search Flights"}/>
           </form>
         </div>
       )

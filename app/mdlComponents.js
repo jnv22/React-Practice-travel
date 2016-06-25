@@ -53,6 +53,7 @@ const Components = {
           className="button"
           labelPosition="before"
           secondary="true"
+          disabled={this.props.disabled}
           onClick={this.props.onclick}
           style={styles.button}>
         </RaisedButton>

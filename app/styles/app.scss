@@ -30,19 +30,26 @@ html, body {
     ul {
       li.flightList {
         clear:  both;
+        margin: 5%;
+        overflow: hidden;
         background-color: #eeeeee;
         .generalFlightInformation {
-          width: 33%;
+          width: 20%;
           display: inline-block;
         }
         span {
           padding: 5px;
         }
-        #flightDetails {
+        .generalFlightDetails {
+          width: 80%;
+          float: right;
+          text-align: center;
           display: inline-block;
-          width: 33%;
-          span {
+          #flightDetails {
             display: inline-block;
+            span {
+              display: inline-block;
+            }
           }
         }
       }
