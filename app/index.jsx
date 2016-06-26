@@ -9,7 +9,9 @@ import ChineseHome from '../app/chineseHome';
 import UsHome from '../app/usHome';
 import components from "../app/mdlComponents";
 injectTapEventPlugin();
-require("../app/styles/app.scss")
+require('../app/styles/app.scss')
+require ('../app/styles/font-awesome/css/font-awesome.css');
+
 
 
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';

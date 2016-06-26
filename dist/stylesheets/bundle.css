@@ -1,0 +1,59 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; }
+
+#app, #content {
+  height: 100%; }
+
+.MainSite {
+  height: 100%; }
+  .MainSite #usHome {
+    height: 100%; }
+    .MainSite #usHome #searchTickets form #destination, .MainSite #usHome #searchTickets form #origin {
+      display: inline-block;
+      width: 50%;
+      text-align: center; }
+    .MainSite #usHome #searchTickets .button {
+      width: 50%;
+      margin: 12px auto auto auto !important;
+      display: block !important; }
+    .MainSite #usHome ul li.flightList {
+      clear: both;
+      margin: 5%;
+      overflow: hidden;
+      background-color: #eeeeee; }
+      .MainSite #usHome ul li.flightList .generalFlightInformation {
+        width: 20%;
+        display: inline-block; }
+      .MainSite #usHome ul li.flightList span {
+        padding: 5px; }
+      .MainSite #usHome ul li.flightList .generalFlightDetails {
+        width: 80%;
+        float: right;
+        text-align: center;
+        display: inline-block; }
+        .MainSite #usHome ul li.flightList .generalFlightDetails #flightDetails {
+          display: inline-block; }
+          .MainSite #usHome ul li.flightList .generalFlightDetails #flightDetails span {
+            display: inline-block; }
+
+#chineseSpringboard {
+  float: left;
+  height: 100%;
+  width: 50%;
+  color: white;
+  background-image: url("/app/assets/taipei.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+#englishSpringboard {
+  float: right;
+  height: 100%;
+  width: 50%;
+  color: white;
+  background-image: url("/app/assets/nyc.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }

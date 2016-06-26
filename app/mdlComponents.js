@@ -5,6 +5,16 @@ import DatePicker from 'material-ui/DatePicker';
 import AppBar from 'material-ui/AppBar';
 import {browserHistory} from 'react-router';
 
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Flight from 'material-ui/svg-icons/maps/flight';
+import Library from 'material-ui/svg-icons/maps/local-library';
+import Articles from 'material-ui/svg-icons/editor/insert-comment';
+import Classifieds from 'material-ui/svg-icons/action/question-answer';
+import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+
 const styles = {
   button: {
     margin: 12,
@@ -19,9 +29,47 @@ const styles = {
     width: '100%',
     opacity: 0,
   },
+  paper: {
+  display: 'inline-block',
+  float: 'left',
+  margin: '16px 32px 16px 0',
+  },
+  rightIcon: {
+    textAlign: 'center',
+    lineHeight: '24px',
+  }
 };
 
 const Components = {
+
+  MenuExampleIcons: React.createClass({
+    render: function() {
+      console.log(this.props.menu)
+      this.props.menu.map(function(resw) {
+        console.log(resw.title)
+      })
+
+      var menuItems =  this.props.menu.map((item) => {
+        var img = "fa fa-" + item.img;
+        console.log(img, "her")
+
+        return (
+          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img}></FontIcon>} />
+        )
+      })
+
+      return (
+        <div>
+          <Paper style={styles.paper}>
+            <Menu>
+              {menuItems}
+            </Menu>
+          </Paper>
+        </div>
+      )
+    }
+  }),
+
   Header: React.createClass({
     menuTouch: function() {
       browserHistory.push('/');

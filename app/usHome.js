@@ -4,6 +4,18 @@ import api from "./api";
 import moment from "moment";
 require("moment-duration-format");
 
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
+import PersonAdd from 'material-ui/svg-icons/social/person-add';
+import ContentLink from 'material-ui/svg-icons/content/link';
+import Divider from 'material-ui/Divider';
+import ContentCopy from 'material-ui/svg-icons/content/content-copy';
+import Download from 'material-ui/svg-icons/file/file-download';
+import Delete from 'material-ui/svg-icons/action/delete';
+import FontIcon from 'material-ui/FontIcon';
+
 var flights = {
   apiTemplate: {
     request: {
@@ -35,8 +47,6 @@ var flights = {
 
 var SearchResults = React.createClass({
   render: function() {
-    console.log(this.props, "SearchResults")
-    console.log(this);
 
     var flightDetails = function(res) {
       return res.slice.map(function(segments) {
@@ -44,10 +54,10 @@ var SearchResults = React.createClass({
           return (
             <div id="flightDetails">
               <span>{trip.flight.carrier} {trip.flight.number}</span>
-              <span>{trip.leg[0].origin}</span>
               <span>{moment(trip.leg[0].departureTime).format("h:mm a")}</span>
-              <span>{trip.leg[0].destination}</span>
+              <span>{trip.leg[0].origin}</span>
               <span>{moment(trip.leg[0].arrivalTime).format("h:mm a")}</span>
+              <span>{trip.leg[0].destination}</span>
             </div>
           )
         })
@@ -85,7 +95,6 @@ var SearchTickets = React.createClass({
       }
     },
     handleInputChange: function(field, event) {
-      console.log(field)
       var formState = {};
       formState[field] = event.target.value;
       this.setState(formState)
@@ -97,19 +106,22 @@ var SearchTickets = React.createClass({
       this.setState(formState)
     },
     submit: function(e) {
+      console.log(moment(this.state.currentDate).format("YYYY-MM-DD"))
       e.preventDefault();
       this.setState({loadingFlightData: true})
       var ctrl = this;
       flights.apiTemplate.request.slice[0].origin = this.state.from;
       flights.apiTemplate.request.slice[0].destination = this.state.to;
-      flights.apiTemplate.request.slice[0].date = this.state.departDate;
+      flights.apiTemplate.request.slice[0].date = this.state.departDate || moment(this.state.currentDate).format("YYYY-MM-DD");
       flights.apiTemplate.request.slice[1].origin = this.state.to;
       flights.apiTemplate.request.slice[1].destination = this.state.from;
-      flights.apiTemplate.request.slice[1].date = this.state.arrivalDate;
+      flights.apiTemplate.request.slice[1].date = this.state.arrivalDate || moment(this.state.currentDate).format("YYYY-MM-DD");
 
+      console.log(flights.apiTemplate)
       api.requestFlightData(flights.apiTemplate)
         .then(function(response) {
-          ctrl.props.onClick(response),
+          ctrl.props.onClick(response);
+          console.log(response)
           ctrl.setState({loadingFlightData:false})
         })
         .catch(function(error) {
@@ -152,19 +164,25 @@ var SearchTickets = React.createClass({
 });
 
 var usHome = React.createClass({
+  MenuViews: [
+    {title: "Airfare Lookup", img:"plane", clickEvent: "Some event"},
+    {title: "Learn Chinese", img:"book", clickEvent: "Some event"},
+    {title: "Articles", img:"newspaper-o", clickEvent: "Some event"},
+    {title: "Classifieds", img:"Classifieds", clickEvent: "Some event"}
+  ],
   getInitialState: function() {
     return {
       flightData: null
     }
   },
   updateFlightResults: function(flightData) {
-    console.log(flightData, "UpdateResults");
     this.setState({flightData: flightData})
   },
   render: function() {
     return (
       <div id="usHome">
         <components.Header title="Us Home"/>
+        <components.MenuExampleIcons menu={this.MenuViews}/>
         <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
         <SearchResults flightData={this.state.flightData}/>
       </div>
