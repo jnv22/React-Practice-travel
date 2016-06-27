@@ -3,6 +3,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+
 import {browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
@@ -42,21 +44,48 @@ const styles = {
 
 const Components = {
 
-  MenuExampleIcons: React.createClass({
-    render: function() {
-      console.log(this.props.menu)
-      this.props.menu.map(function(resw) {
-        console.log(resw.title)
-      })
+  Drawer: React.createClass({
 
+    getInitialState: function() {
+      return {
+        open: this.props.showMenu
+      }
+    },
+
+    handleToggle: function() {
+      this.setState({open: !this.state.open})
+    },
+
+    render: function() {
       var menuItems =  this.props.menu.map((item) => {
         var img = "fa fa-" + item.img;
-        console.log(img, "her")
-
         return (
-          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img}></FontIcon>} />
+          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
         )
       })
+      return (
+        <div>
+          <RaisedButton
+            label="Toggle Drawer"
+            onTouchTap={this.handleToggle}
+          />
+          <Drawer open={this.state.open}>
+            Components.Menu
+          </Drawer>
+        </div>
+      );
+    }
+  }),
+
+  Menu: React.createClass({
+    render: function() {
+      var menuItems =  this.props.menu.map((item) => {
+        var img = "fa fa-" + item.img;
+        return (
+          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
+        )
+      })
+      console.log(this.props.showMenuState)
 
       return (
         <div>
@@ -71,16 +100,16 @@ const Components = {
   }),
 
   Header: React.createClass({
-    menuTouch: function() {
-      browserHistory.push('/');
-    },
     render: function() {
+      console.log(this.props)
       return (
-        <AppBar
-          title={this.props.title}
-          onLeftIconButtonTouchTap={this.menuTouch}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
+        <div id="header">
+          <AppBar
+            title={this.props.title}
+            onLeftIconButtonTouchTap={this.props.onClick}
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
+          />
+        </div>
       )
     }
   }),

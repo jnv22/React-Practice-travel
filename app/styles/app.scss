@@ -15,10 +15,11 @@ html, body {
   #usHome {
     height: 100%;
     #searchTickets {
+      width: 100%;
+      margin-left: 224px;
       form {
         #destination, #origin {
           display: inline-block;
-          width: 50%;
           text-align: center;
         }
       }

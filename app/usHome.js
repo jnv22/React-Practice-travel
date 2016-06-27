@@ -106,7 +106,6 @@ var SearchTickets = React.createClass({
       this.setState(formState)
     },
     submit: function(e) {
-      console.log(moment(this.state.currentDate).format("YYYY-MM-DD"))
       e.preventDefault();
       this.setState({loadingFlightData: true})
       var ctrl = this;
@@ -130,7 +129,6 @@ var SearchTickets = React.createClass({
         })
     },
     render: function() {
-      console.log(this.state.loadingFlightData, "state")
       return (
         <div id = "searchTickets">
           <form>
@@ -167,13 +165,19 @@ var usHome = React.createClass({
   MenuViews: [
     {title: "Airfare Lookup", img:"plane", clickEvent: "Some event"},
     {title: "Learn Chinese", img:"book", clickEvent: "Some event"},
-    {title: "Articles", img:"newspaper-o", clickEvent: "Some event"},
-    {title: "Classifieds", img:"Classifieds", clickEvent: "Some event"}
+    {title: "Articles", img:"commenting", clickEvent: "Some event"},
+    {title: "Classifieds", img:"newspaper-o", clickEvent: "Some event"}
   ],
   getInitialState: function() {
     return {
-      flightData: null
+      flightData: null,
+      showMenu: false
     }
+  },
+
+  toggleMenuState: function() {
+    this.setState({showMenu: !this.state.showMenu});
+    console.log(this.state)
   },
   updateFlightResults: function(flightData) {
     this.setState({flightData: flightData})
@@ -181,8 +185,9 @@ var usHome = React.createClass({
   render: function() {
     return (
       <div id="usHome">
-        <components.Header title="Us Home"/>
-        <components.MenuExampleIcons menu={this.MenuViews}/>
+        <components.Header onClick={this.toggleMenuState} title="US Home"/>
+        <components.Drawer showMenu={this.state.showMenu}  menu={this.MenuViews}/>
+        {/*<components.Menu  menu={this.MenuViews}/>*/}
         <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
         <SearchResults flightData={this.state.flightData}/>
       </div>
