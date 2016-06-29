@@ -7,6 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ChineseHome from '../app/chineseHome';
 import UsHome from '../app/usHome';
+import UsBookFlight from '../app/bookFlight'
 import components from "../app/mdlComponents";
 injectTapEventPlugin();
 require('../app/styles/app.scss')
@@ -52,6 +53,8 @@ const App = () => (
        <IndexRoute component={Springboard} />
        <Route path="zh-tw" component={Springboard}/>
        <Route path="en-us" component={UsHome}/>
+         <Route path="book-a-flight" component={UsBookFlight}/>
+
      </Route>
      <Route path="*" component={NoMatch}/>
     </Router>

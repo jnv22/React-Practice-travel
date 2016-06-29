@@ -4,8 +4,10 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-import {browserHistory} from 'react-router';
+
+import {Link, browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
@@ -44,75 +46,76 @@ const styles = {
 
 const Components = {
 
-  Drawer: React.createClass({
-
-    getInitialState: function() {
-      return {
-        open: this.props.showMenu
-      }
-    },
-
-    handleToggle: function() {
-      this.setState({open: !this.state.open})
-    },
-
+  Card: React.createClass({
     render: function() {
-      var menuItems =  this.props.menu.map((item) => {
-        var img = "fa fa-" + item.img;
-        return (
-          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
-        )
-      })
       return (
-        <div>
-          <RaisedButton
-            label="Toggle Drawer"
-            onTouchTap={this.handleToggle}
-          />
-          <Drawer open={this.state.open}>
-            Components.Menu
-          </Drawer>
-        </div>
-      );
+        <Card>
+          <CardMedia
+            style={{"margin-top":"-64px"}}
+            overlay={<CardTitle title="Welcome to TaiwanConnection" subtitle="Let's Start" />}
+          >
+            <img src="../../app/assets/Times_Square.jpg" />
+          </CardMedia>
+          <CardTitle title="TaiwanConnection" subtitle="a simpler way to find information" />
+          <CardText>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          </CardText>
+        </Card>
+      )
     }
   }),
 
-  Menu: React.createClass({
-    render: function() {
-      var menuItems =  this.props.menu.map((item) => {
-        var img = "fa fa-" + item.img;
-        return (
-          <MenuItem primaryText={item.title} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
-        )
-      })
-      console.log(this.props.showMenuState)
+  Drawer: React.createClass({
+    menuViews: [
+      {title: "Home", img:"home", destination: "en-us"},
+      {title: "Airfare Lookup", img:"plane", destination: "book-a-flight"},
+      {title: "Learn Chinese", img:"book", destination: "err"},
+      {title: "Articles", img:"commenting", destination: "err"},
+      {title: "Classifieds", img:"newspaper-o", clickEvent: "err"}
+    ],
 
+    onClick: function(destination) {
+      browserHistory.push(destination)
+    },
+
+    render: function() {
+      var menuItems =  this.menuViews.map((item) => {
+        console.log(this.props.showMenu, "menu showing")
+        var img = "fa fa-" + item.img;
+        var destination = item.destination
+        return (
+          <MenuItem primaryText={item.title} onTouchTap={this.onClick.bind(this, item.destination)} leftIcon={<FontIcon className={img} checked="true"></FontIcon>} />
+        )
+      });
       return (
-        <div>
-          <Paper style={styles.paper}>
-            <Menu>
-              {menuItems}
-            </Menu>
-          </Paper>
-        </div>
-      )
+          <Drawer open={this.props.showMenu}>
+            <AppBar onLeftIconButtonTouchTap={this.props.onClick}/>
+            {menuItems}
+          </Drawer>
+      );
     }
   }),
 
   Header: React.createClass({
     render: function() {
-      console.log(this.props)
       return (
-        <div id="header">
+      <div>
+        <div id="header" className={this.props.showMenu ? "hide" : ""}>
           <AppBar
             title={this.props.title}
-            onLeftIconButtonTouchTap={this.props.onClick}
+            onLeftIconButtonTouchTap={this.props.toggleMenuState}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
         </div>
+        <Components.Drawer showMenu={this.props.showMenu} onClick={this.props.toggleMenuState}/>
+      </div>
       )
     }
   }),
+
   DatePicker: React.createClass({
     render: function() {
       return (
@@ -122,6 +125,7 @@ const Components = {
       )
     }
   }),
+
   ButtonRaised: React.createClass({
     render: function() {
       return (
@@ -137,6 +141,7 @@ const Components = {
         )
     }
   }),
+
   InputField: React.createClass({
     render: function() {
       return (
