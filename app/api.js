@@ -8,5 +8,11 @@ export default {
     data: JSON.stringify(flightQuery),
     headers: {'Content-Type': 'application/json'}
     })
+  },
+  requestNewsArticles: function() {
+    return axios({
+    method: 'get',
+    url: 'http://content.guardianapis.com/search?tag=asia&api-key=',
+    })
   }
 }

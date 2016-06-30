@@ -157,30 +157,28 @@ var SearchTickets = React.createClass({
 });
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      flightData: null,
-      showMenu: true
-    }
-  },
+    getInitialState: function() {
+      return {
+        flightData: null
+      }
+    },
 
-  toggleMenuState: function() {
-    this.setState({showMenu: !this.state.showMenu});
-  },
+    updateFlightResults: function(flightData) {
+      this.setState({flightData: flightData})
+    },
 
-  updateFlightResults: function(flightData) {
-    this.setState({flightData: flightData})
-  },
-  render: function() {
-    console.log(this.state.flightData, "in main")
-    return (
-      <div id="usHome">
-      <components.Header showMenu={this.state.showMenu} toggleMenuState={this.toggleMenuState} title="US Home"/>
-        <div id="content" className={this.state.showMenu ? "menuOpen" : ""}>
-          <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
-          <SearchResults flightData={this.state.flightData}/>
+    render: function() {
+      var showMenu = this.props.state.showMenu
+
+      return (
+        <div id="usHome">
+        <components.Header showMenu={showMenu} toggleMenuState={this.props.toggleMenuState} title="US Home"/>
+        <components.Drawer showMenu={showMenu} onClick={this.props.toggleMenuState}/>
+          <div id="content" className={showMenu ? "menuOpen" : ""}>
+            <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
+            <SearchResults flightData={this.state.flightData}/>
+          </div>
         </div>
-      </div>
-    );
-  }
-})
+      );
+    }
+  })

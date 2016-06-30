@@ -26,8 +26,21 @@ const NoMatch = React.createClass({
 });
 
 const Main = React.createClass({
+  getInitialState: function() {
+    return {showMenu:false}
+  },
+
+  toggleMenuState: function() {
+    console.log(this.state.showMenu)
+    this.setState({showMenu: !this.state.showMenu});
+    console.log(this.state.showMenu)
+
+  },
+
   render: function() {
-    return <div className="MainSite">{this.props.children} </div>
+    var childrenWithProps = React.cloneElement(this.props.children, {state: this.state, toggleMenuState: this.toggleMenuState});
+    console.log(childrenWithProps)
+    return <div className="MainSite">{childrenWithProps}</div>
   }
 });
 
@@ -45,6 +58,19 @@ const Springboard = React.createClass({
     );
   }
 });
+
+const menu = {
+  get showMenu() {
+    return this.result;
+  },
+  set showMenu(res) {
+    this.result = res;
+  },
+  toggleMenuState: function() {
+    menu.showMenu = !menu.showMenu;
+  },
+}
+
 
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>

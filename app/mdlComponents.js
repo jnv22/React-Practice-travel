@@ -6,6 +6,11 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
+import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+
 
 import {Link, browserHistory} from 'react-router';
 
@@ -41,28 +46,56 @@ const styles = {
   rightIcon: {
     textAlign: 'center',
     lineHeight: '24px',
-  }
+  },
+  root: {
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 500,
+    height: 500,
+    overflowY: 'auto',
+    marginBottom: 24,
+  },
 };
 
 const Components = {
 
+  gridList: React.createClass({
+    render: function() {
+      return (
+        <div style={styles.root}>
+          <GridList
+            cellHeight={200}
+            style={styles.gridList}
+          >
+            <Subheader>December</Subheader>
+            {tilesData.map((tile) => (
+              <GridTile
+                key={tile.img}
+                title={tile.title}
+                subtitle={<span>by <b>{tile.author}</b></span>}
+                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+              >
+                <img src={tile.img} />
+              </GridTile>
+            ))}
+          </GridList>
+        </div>
+      );
+    }
+  }),
+
   Card: React.createClass({
     render: function() {
       return (
-        <Card>
+        <Card style={{width: '60%', margin: '10px auto'}}>
           <CardMedia
-            style={{"margin-top":"-64px"}}
             overlay={<CardTitle title="Welcome to TaiwanConnection" subtitle="Let's Start" />}
           >
             <img src="../../app/assets/Times_Square.jpg" />
           </CardMedia>
-          <CardTitle title="TaiwanConnection" subtitle="a simpler way to find information" />
-          <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-          </CardText>
         </Card>
       )
     }
@@ -110,7 +143,6 @@ const Components = {
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           />
         </div>
-        <Components.Drawer showMenu={this.props.showMenu} onClick={this.props.toggleMenuState}/>
       </div>
       )
     }
