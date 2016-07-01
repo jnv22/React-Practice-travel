@@ -17,13 +17,6 @@ require ('../app/styles/font-awesome/css/font-awesome.css');
 
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
-const NoMatch = React.createClass({
-  render: function() {
-    return (
-      <h4>Error 404</h4>
-    )
-  }
-});
 
 const Main = React.createClass({
   getInitialState: function() {
@@ -59,18 +52,13 @@ const Springboard = React.createClass({
   }
 });
 
-const menu = {
-  get showMenu() {
-    return this.result;
-  },
-  set showMenu(res) {
-    this.result = res;
-  },
-  toggleMenuState: function() {
-    menu.showMenu = !menu.showMenu;
-  },
-}
-
+const NoMatch = React.createClass({
+  render: function() {
+    return (
+      <h4>Error 404</h4>
+    )
+  }
+});
 
 const App = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>

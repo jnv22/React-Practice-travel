@@ -23,6 +23,8 @@ import Articles from 'material-ui/svg-icons/editor/insert-comment';
 import Classifieds from 'material-ui/svg-icons/action/question-answer';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
+import moment from "moment";
+
 
 const styles = {
   button: {
@@ -62,23 +64,26 @@ const styles = {
 
 const Components = {
 
-  gridList: React.createClass({
+  GridList: React.createClass({
     render: function() {
+      console.log(this.props.newsArticles, "now here")
+
+      if (this.props.newsArticles == "")
+        return null;
+
       return (
         <div style={styles.root}>
           <GridList
             cellHeight={200}
             style={styles.gridList}
           >
-            <Subheader>December</Subheader>
-            {tilesData.map((tile) => (
+            <Subheader>{moment(new Date()).format("dddd, MMMM Do YYYY")}</Subheader>
+            {this.props.newsArticles.data.response.results.map((tile) => (
               <GridTile
-                key={tile.img}
-                title={tile.title}
-                subtitle={<span>by <b>{tile.author}</b></span>}
+                key={tile.id}
+                title={tile.webTitle}
                 actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
-                <img src={tile.img} />
               </GridTile>
             ))}
           </GridList>
