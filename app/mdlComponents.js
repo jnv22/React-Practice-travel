@@ -58,7 +58,7 @@ const styles = {
 
   },
   gridList: {
-    width: '100%',
+    width: 500,
     height: 900,
     overflowY: 'auto',
     marginBottom: 24,
@@ -98,7 +98,7 @@ const Components = {
             style={{"textAlign": "center",
               "border-bottom": "solid 1px rgba(0, 0, 0, 0.541176)",
               display: "inline",
-              width: "40%",
+              width: 600,
               "padding-left": 0}}
             > <span>News From Around the World-  </span>{moment(new Date()).format("dddd, MMMM Do YYYY")}</Subheader>
           <GridList
