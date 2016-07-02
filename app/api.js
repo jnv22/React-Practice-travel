@@ -12,9 +12,8 @@ export default {
   requestNewsArticles: function() {
     return axios({
     method: 'get',
-    url: 'http://content.guardianapis.com/search?tag=world/asia-pacific&api-key=a9796b32-ed68-4a9d-8f0b-5954e9723829',
+    url: 'https://api.nytimes.com/svc/topstories/v2/world.json?api-key=bfe697619cda4badbdc539c0ffef8dff',
     headers: {'Content-Type': 'application/json'}
-
     })
   }
 }

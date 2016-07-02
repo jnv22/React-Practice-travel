@@ -23,19 +23,28 @@ var UsHome = React.createClass({
   componentDidMount: function() {
     api.requestNewsArticles()
       .then((articles) => {
-        this.setState({newsArticles: articles})
-      })
+        this.newsArticles = [];
+        articles.data.results.map((tile, index) => {
+          index < 9 ? hasHiDefPictures(tile, this.newsArticles) : ""
+        });
+      this.setState({newsArticles: this.newsArticles})
+    });
+    function hasHiDefPictures(tile, newsArticles) {
+      if (tile.multimedia.length > 4) {
+        return newsArticles.push(tile)
+      }
+    }
   },
   render: function() {
     var showMenu = this.props.state.showMenu;
-    console.log(this.state, "here")
+    console.log(this.state.newsArticles)
     return (
       <div id="usHome">
         <components.Header showMenu={showMenu} toggleMenuState={this.props.toggleMenuState} title="US Home"/>
         <components.Drawer showMenu={showMenu} onClick={this.props.toggleMenuState}/>
         <div id="content" className={showMenu ? "menuOpen" : ""}>
           <components.Card />
-          <components.GridList newsArticles={this.state.newsArticles} />
+          {this.state.newsArticles !== "" ? <components.GridList newsArticles={this.state.newsArticles} /> : ""}
         </div>
       </div>
     );

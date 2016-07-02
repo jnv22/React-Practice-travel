@@ -41,9 +41,11 @@ const styles = {
     opacity: 0,
   },
   paper: {
-  display: 'inline-block',
-  float: 'left',
-  margin: '16px 32px 16px 0',
+    height: 250,
+    width: "100%",
+    margin: 5,
+    textAlign: 'center',
+    display: 'inline-block'
   },
   rightIcon: {
     textAlign: 'center',
@@ -53,10 +55,11 @@ const styles = {
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'space-around',
+
   },
   gridList: {
-    width: 500,
-    height: 500,
+    width: '100%',
+    height: 900,
     overflowY: 'auto',
     marginBottom: 24,
   },
@@ -64,28 +67,45 @@ const styles = {
 
 const Components = {
 
+  MediaTile: React.createClass({
+    selectNewsArticle: function(tile) {
+      window.open(tile.url)
+    },
+    render: function() {
+      console.log(this.props.tile.multimedia.length)
+      return (
+        <GridTile
+          onClick={this.selectNewsArticle.bind(this, this.props.tile)}
+          title={this.props.tile.title}
+          style={{margin: 10}}
+        >
+        <img src={this.props.tile.multimedia[3].url} />
+        </GridTile>
+      )
+    }
+  }),
+
   GridList: React.createClass({
     render: function() {
-      console.log(this.props.newsArticles, "now here")
-
-      if (this.props.newsArticles == "")
-        return null;
+      var newsArticles = this.props.newsArticles;
+      var renderArticles = newsArticles.map(function(tile, key) {
+        return <Components.MediaTile key={key} tile={tile} />
+      })
 
       return (
         <div style={styles.root}>
+          <Subheader
+            style={{"textAlign": "center",
+              "border-bottom": "solid 1px rgba(0, 0, 0, 0.541176)",
+              display: "inline",
+              width: "40%",
+              "padding-left": 0}}
+            > <span>News From Around the World-  </span>{moment(new Date()).format("dddd, MMMM Do YYYY")}</Subheader>
           <GridList
             cellHeight={200}
             style={styles.gridList}
           >
-            <Subheader>{moment(new Date()).format("dddd, MMMM Do YYYY")}</Subheader>
-            {this.props.newsArticles.data.response.results.map((tile) => (
-              <GridTile
-                key={tile.id}
-                title={tile.webTitle}
-                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-              >
-              </GridTile>
-            ))}
+            {renderArticles}
           </GridList>
         </div>
       );
@@ -95,13 +115,20 @@ const Components = {
   Card: React.createClass({
     render: function() {
       return (
-        <Card style={{width: '60%', margin: '10px auto'}}>
-          <CardMedia
-            overlay={<CardTitle title="Welcome to TaiwanConnection" subtitle="Let's Start" />}
-          >
-            <img src="../../app/assets/Times_Square.jpg" />
-          </CardMedia>
-        </Card>
+          <div id="welcomeBanner">
+
+            <Paper
+              style={styles.paper}
+              zDepth={2}
+              children= {
+                <div class="displayPicture"
+                  style={{height: "100%", width: "100%","background": 'url("../../app/assets/nyc.jpg") no-repeat','background-position':'center bottom', 'background-size':'cover'}}
+                >
+                <h2>TaiwanConnection</h2>
+                </div>
+             }
+              />
+          </div>
       )
     }
   }),
