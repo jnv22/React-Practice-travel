@@ -49,10 +49,9 @@ const styles = {
   },
   paper: {
     height: 150,
-    width: "100%",
-    margin: 5,
+    width: "90%",
+    margin: "auto",
     textAlign: 'center',
-    display: 'inline-block'
   },
   rightIcon: {
     textAlign: 'center',
@@ -66,9 +65,9 @@ const styles = {
 
   },
   gridList: {
-    width: "60%",
-    "min-width": 690,
-    height: 800,
+    width: "70%",
+    minWidth: 690,
+    height: 900,
     overflowY: 'auto',
     marginBottom: 24,
   },
@@ -105,10 +104,10 @@ const Components = {
         <div style={styles.root}>
           <Subheader
             style={{"textAlign": "center",
-              "border-bottom": "solid 1px rgba(0, 0, 0, 0.541176)",
+              borderBottom: "solid 1px rgba(0, 0, 0, 0.541176)",
               display: "inline",
               width: 600,
-              "padding-left": 0}}
+              paddingLeft: 0}}
             > <span>News From Around the World-  </span>{moment(new Date()).format("dddd, MMMM Do YYYY")}</Subheader>
           <GridList
             cellHeight={200}
@@ -129,7 +128,7 @@ const Components = {
         zDepth={2}
         children= {
           <div class="displayPicture"
-            style={{height: "100%", width: "100%","background": 'url("../../app/assets/nyc.jpg") no-repeat','background-position':'center bottom', 'background-size':'cover'}}
+            style={{height: "100%", width: "100%","background": 'url("../../app/assets/nyc.jpg") no-repeat',backgroundPosition:'center bottom', backgroundSize:'cover'}}
           >
           <h2>TaiwanConnection</h2>
           </div>
@@ -155,7 +154,7 @@ const Components = {
     menuViews: [
       {title: "Home", img:"home", destination: "en-us"},
       {title: "Airfare Lookup", img:"plane", destination: "book-a-flight"},
-      {title: "Learn Chinese", img:"book", destination: "err"},
+      {title: "Learn Chinese", img:"book", destination: "learn"},
       {title: "Articles", img:"commenting", destination: "err"},
       {title: "Classifieds", img:"newspaper-o", clickEvent: "err"}
     ],

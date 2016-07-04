@@ -37,7 +37,6 @@ var UsHome = React.createClass({
   },
   render: function() {
     var showMenu = this.props.state.showMenu;
-    console.log(this.state.newsArticles)
     return (
       <div id="usHome">
         <components.Header showMenu={showMenu} toggleMenuState={this.props.toggleMenuState} title="US Home"/>

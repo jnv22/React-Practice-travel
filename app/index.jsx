@@ -9,6 +9,8 @@ import ChineseHome from '../app/chineseHome';
 import UsHome from '../app/usHome';
 import UsBookFlight from '../app/bookFlight'
 import components from "../app/mdlComponents";
+import learnChinese from "../app/learnChinese";
+
 injectTapEventPlugin();
 require('../app/styles/app.scss')
 require ('../app/styles/font-awesome/css/font-awesome.css');
@@ -24,15 +26,11 @@ const Main = React.createClass({
   },
 
   toggleMenuState: function() {
-    console.log(this.state.showMenu)
     this.setState({showMenu: !this.state.showMenu});
-    console.log(this.state.showMenu)
-
   },
 
   render: function() {
     var childrenWithProps = React.cloneElement(this.props.children, {state: this.state, toggleMenuState: this.toggleMenuState});
-    console.log(childrenWithProps)
     return <div className="MainSite">{childrenWithProps}</div>
   }
 });
@@ -68,7 +66,7 @@ const App = () => (
        <Route path="zh-tw" component={Springboard}/>
        <Route path="en-us" component={UsHome}/>
          <Route path="book-a-flight" component={UsBookFlight}/>
-
+          <Route path="learn" component={learnChinese}/>
      </Route>
      <Route path="*" component={NoMatch}/>
     </Router>
