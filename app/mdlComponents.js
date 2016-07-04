@@ -40,8 +40,15 @@ const styles = {
     width: '100%',
     opacity: 0,
   },
-  paper: {
+  card: {
     height: 250,
+    width: "100%",
+    margin: 5,
+    textAlign: 'center',
+    display: 'inline-block'
+  },
+  paper: {
+    height: 150,
     width: "100%",
     margin: 5,
     textAlign: 'center',
@@ -53,13 +60,15 @@ const styles = {
   },
   root: {
   display: 'flex',
+  width: "100%",
   flexWrap: 'wrap',
   justifyContent: 'space-around',
 
   },
   gridList: {
-    width: 500,
-    height: 900,
+    width: "60%",
+    "min-width": 690,
+    height: 800,
     overflowY: 'auto',
     marginBottom: 24,
   },
@@ -77,7 +86,7 @@ const Components = {
         <GridTile
           onClick={this.selectNewsArticle.bind(this, this.props.tile)}
           title={this.props.tile.title}
-          style={{margin: 10}}
+          style={{margin: 10, cursor:"pointer"}}
         >
         <img src={this.props.tile.multimedia[3].url} />
         </GridTile>
@@ -115,20 +124,30 @@ const Components = {
   Card: React.createClass({
     render: function() {
       return (
-          <div id="welcomeBanner">
-
-            <Paper
-              style={styles.paper}
-              zDepth={2}
-              children= {
-                <div class="displayPicture"
-                  style={{height: "100%", width: "100%","background": 'url("../../app/assets/nyc.jpg") no-repeat','background-position':'center bottom', 'background-size':'cover'}}
-                >
-                <h2>TaiwanConnection</h2>
-                </div>
-             }
-              />
+      <Paper
+        style={styles.paper}
+        zDepth={2}
+        children= {
+          <div class="displayPicture"
+            style={{height: "100%", width: "100%","background": 'url("../../app/assets/nyc.jpg") no-repeat','background-position':'center bottom', 'background-size':'cover'}}
+          >
+          <h2>TaiwanConnection</h2>
           </div>
+       }
+        />
+      )
+    }
+  }),
+
+  Paper: React.createClass({
+    render: function() {
+      console.log(this.props.children)
+      return (
+        <Paper
+          style={styles.paper}
+          zDepth={2}
+          children={this.props.children}
+          />
       )
     }
   }),

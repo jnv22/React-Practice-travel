@@ -36,39 +36,48 @@ var flights = {
   returnedResults: {}
 }
 
-var SearchResults = React.createClass({
+const SearchResults = React.createClass({
   render: function() {
 
-    var flightDetails = function(res) {
-      return res.slice.map(function(segments) {
-        return segments.segment.map(function(trip) {
-          return (
-            <div id="flightDetails">
-              <span>{trip.flight.carrier} {trip.flight.number}</span>
-              <span>{moment(trip.leg[0].departureTime).format("h:mm a")}</span>
-              <span>{trip.leg[0].origin}</span>
-              <span>{moment(trip.leg[0].arrivalTime).format("h:mm a")}</span>
-              <span>{trip.leg[0].destination}</span>
-            </div>
-          )
-        })
-      })
-    };
-
-    var flightList = this.props.flightData !== null ?
-      this.props.flightData.data.trips.tripOption.map((res) => {
+     const flightSegments = function(segments) {
+      return segments.segment.map(function(segment) {
         return (
-          <li className="flightList" key={res.id} >
-            <div className="generalFlightInformation">
-              <span>{res.saleTotal}</span>
-              <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
-            </div>
-            <div className="generalFlightDetails">
-              {flightDetails(res)}
-            </div>
+          <li className="segment">
+            <span>{segment.flight.carrier} {segment.flight.number}</span>
+            <span>{moment(segment.leg[0].departureTime).format("h:mm a")}</span>
+            <span>{segment.leg[0].origin}</span>
+            <span>{moment(segment.leg[0].arrivalTime).format("h:mm a")}</span>
+            <span>{segment.leg[0].destination}</span>
           </li>
         )
-    }) : ""
+      })
+    }
+
+    const flightDetails = function(res) {
+      return res.slice.map(function(segments) {
+        return (
+            flightSegments(segments)
+          )
+        })
+    };
+
+    const flightList = this.props.flightData !== null ?
+      this.props.flightData.data.trips.tripOption.map((res) => {
+        return (
+          <components.Paper>
+            <li className="flightList" key={res.id} >
+              <div className="FlightInformation">
+                <span>{res.saleTotal} </span>
+                <span>{moment.duration(res.slice[0].duration, "minutes").format()}</span>
+              </div>
+              <ul className="FlightDetails">
+                {flightDetails(res)}
+              </ul>
+            </li>
+          </components.Paper>
+        )
+    }) : "";
+
     return (
       <ul>
         {flightList}
@@ -77,7 +86,7 @@ var SearchResults = React.createClass({
   }
 })
 
-var SearchTickets = React.createClass({
+const SearchTickets = React.createClass({
     getInitialState: function() {
       return {
         flightData: this.props.flightData,
@@ -176,7 +185,9 @@ module.exports = React.createClass({
         <components.Drawer showMenu={showMenu} onClick={this.props.toggleMenuState}/>
           <div id="content" className={showMenu ? "menuOpen" : ""}>
             <SearchTickets flightData={this.state.flightData} onClick={this.updateFlightResults}/>
+              <div id="flightDetails">
             <SearchResults flightData={this.state.flightData}/>
+              </div>
           </div>
         </div>
       );

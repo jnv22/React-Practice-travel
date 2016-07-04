@@ -43,7 +43,9 @@ var UsHome = React.createClass({
         <components.Header showMenu={showMenu} toggleMenuState={this.props.toggleMenuState} title="US Home"/>
         <components.Drawer showMenu={showMenu} onClick={this.props.toggleMenuState}/>
         <div id="content" className={showMenu ? "menuOpen" : ""}>
-          <components.Card />
+          <div className="welcomeBanner">
+            <components.Card />
+          </div>
           {this.state.newsArticles !== "" ? <components.GridList newsArticles={this.state.newsArticles} /> : ""}
         </div>
       </div>
