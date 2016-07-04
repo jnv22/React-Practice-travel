@@ -14,12 +14,12 @@ var flights = {
         {
           "origin": "",
           "destination": "",
-          "date": "2016-06-22"
+          "date": "2016-07-22"
         },
         {
           "origin": "",
           "destination": "",
-          "date": "2016-06-22"
+          "date": "2016-07-25"
         }
       ],
       passengers: {
@@ -38,7 +38,6 @@ var flights = {
 
 const SearchResults = React.createClass({
   render: function() {
-
      const flightSegments = function(segments) {
       return segments.segment.map(function(segment) {
         return (

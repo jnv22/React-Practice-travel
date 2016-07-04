@@ -141,7 +141,6 @@ const Components = {
 
   Paper: React.createClass({
     render: function() {
-      console.log(this.props.children)
       return (
         <Paper
           style={styles.paper}

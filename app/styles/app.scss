@@ -51,6 +51,7 @@ html, body{
       };
       #flightDetails {
         ul {
+          padding: 40px;
           list-style-type: none;
           li.flightList {
             clear:  both;
@@ -60,12 +61,15 @@ html, body{
               width: 20%;
               float: left;
               display: inline-block;
+              span {
+                display: block
+              }
             }
             span {
               padding: 5px;
             }
-            .FlightDetails {
-              width: 80%;
+            ul.FlightDetails {
+              padding: 20px;
               float: right;
               text-align: center;
               display: inline-block;
