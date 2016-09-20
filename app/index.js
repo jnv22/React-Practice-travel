@@ -15,10 +15,7 @@ injectTapEventPlugin();
 require('../app/styles/app.scss')
 require ('../app/styles/font-awesome/css/font-awesome.css');
 
-
-
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
-
 
 const Main = React.createClass({
   getInitialState: function() {

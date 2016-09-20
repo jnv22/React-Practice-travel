@@ -11,7 +11,6 @@ import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
-
 import {Link, browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
@@ -24,7 +23,6 @@ import Classifieds from 'material-ui/svg-icons/action/question-answer';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import moment from "moment";
-
 
 const styles = {
   button: {
@@ -74,7 +72,6 @@ const styles = {
 };
 
 const Components = {
-
   MediaTile: React.createClass({
     selectNewsArticle: function(tile) {
       window.open(tile.url)
@@ -132,7 +129,7 @@ const Components = {
           >
           <h2>TaiwanConnection</h2>
           </div>
-       }
+        }
         />
       )
     }
@@ -145,7 +142,7 @@ const Components = {
           style={styles.paper}
           zDepth={2}
           children={this.props.children}
-          />
+        />
       )
     }
   }),

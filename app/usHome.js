@@ -4,7 +4,6 @@ import api from "./api";
 import moment from "moment";
 require("moment-duration-format");
 
-
 var newsArticles = {
   store: "",
   getNewsArticles: function() {
@@ -14,7 +13,6 @@ var newsArticles = {
       })
   }
 }
-
 
 var UsHome = React.createClass({
   getInitialState: function() {

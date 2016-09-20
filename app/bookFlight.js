@@ -6,7 +6,6 @@ import FontIcon from 'material-ui/FontIcon';
 
 require("moment-duration-format");
 
-
 var flights = {
   apiTemplate: {
     request: {
