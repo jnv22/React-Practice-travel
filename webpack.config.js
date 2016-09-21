@@ -1,22 +1,19 @@
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin ({
-  template: __dirname +'/app/index.html',
+  template: path.resolve(__dirname, 'app/index.html'),
   filename: 'index.html',
   inject: 'body'
 })
 
-
-
 module.exports =  {
   entry: [
-    './app/index.jsx'
+    path.resolve(__dirname,'app/index.js')
   ],
   module: {
     loaders: [
-      {test: /\.jsx?$/, include: __dirname + '/app', loader: "babel"},
+      {test: /\.jsx?$/, include: path.resolve(__dirname, 'app'), loader: "babel"},
       {test: /\.jpg$/, loader: "url-loader?limit=10000&minetype=image/jpg" },
       {test: /\.scss?$/, loaders: ['style', 'css', 'sass']},
       { test: /\.css$/, loader: "style-loader!css-loader" },
@@ -29,7 +26,7 @@ module.exports =  {
   },
   output: {
     filename: "index_bundle.js",
-    path: __dirname + '/dist'
+    path: path.resolve(__dirname, 'dist')
   },
   plugins: [
     HTMLWebpackPluginConfig

@@ -1,19 +1,17 @@
-// tutorial1.js
-
 import React from "react";
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import ChineseHome from '../app/chineseHome';
-import UsHome from '../app/usHome';
-import UsBookFlight from '../app/bookFlight'
-import components from "../app/mdlComponents";
-import learnChinese from "../app/learnChinese";
+import ChineseHome from './chineseHome';
+import UsHome from './usHome';
+import UsBookFlight from './bookFlight'
+import components from "./mdlComponents";
+import learnChinese from "./learnChinese";
 
 injectTapEventPlugin();
-require('../app/styles/app.scss')
-require ('../app/styles/font-awesome/css/font-awesome.css');
+require('./styles/app.scss')
+require ('./styles/font-awesome/css/font-awesome.css');
 
 import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 
@@ -28,18 +26,18 @@ const Main = React.createClass({
 
   render: function() {
     var childrenWithProps = React.cloneElement(this.props.children, {state: this.state, toggleMenuState: this.toggleMenuState});
-    return <div className="MainSite">{childrenWithProps}</div>
+    return <div id="main">{childrenWithProps}</div>
   }
 });
 
 const Springboard = React.createClass({
   render: function() {
     return (
-      <div id = "content">
-        <div id = "chineseSpringboard">
+      <div id = "springBoard">
+        <div className = "chinese">
           <Link to="/zh-tw"><components.ButtonRaised label="中文"/></Link>
         </div>
-        <div id = "englishSpringboard">
+        <div className = "english">
           <Link to="/en-us"><components.ButtonRaised label="English"/></Link>
         </div>
       </div>
@@ -72,5 +70,5 @@ const App = () => (
 
 ReactDOM.render(
   <App />,
-  document.body
+  document.getElementById('content')
 );
